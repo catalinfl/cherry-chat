@@ -1,0 +1,25 @@
+.loginContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginWrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+
+    .loginWrapperText {
+        display: flex;
+        justify-content: center;
+        margin: 2rem 0px;
+        font-size: 32px;
+    }
+}
+
+.loginInputItem {
+    margin: 1rem;
+    display: flex;
+}
