@@ -1,13 +1,12 @@
 
-$background-color: hsl(0, 61%, 69%);
-
+$messagecolor: hsl(0, 70%, 54%);
+$background-color: rgb(252 165 165);
 
 
 .home {
     display: flex;
     justify-content: center;
     margin-top: 4rem;
-    height: 80vh;
     overflow-y: auto;
     direction: ltr;
 
@@ -35,7 +34,7 @@ body {
 
 .homeContainer {
     width: 75%;
-    height: 75vh;
+    height: 80vh;
     display: flex;
   
         ::-webkit-scrollbar{
@@ -69,13 +68,14 @@ body {
         .user {
             display: flex;
             flex-direction: row;
-            gap: 0.25rem; 
+            gap: 0.25rem;
+            color: white;
+            font-size: 30px;
         }            
 
         img {
-            background-color: #ddddf7;
-            height: 24px;
-            width: 24px;
+            height: 36px;
+            width: 36px;
             border-radius: 50%;
             object-fit: cover;
         }
@@ -89,6 +89,41 @@ body {
 
 .chat {
     flex: 5;
+
+    .navbarChat {
+        background-color: #d93d3d;
+        color: white;
+        height: 60px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 3px;
+        border-radius: 15px;
+        // border-top-right-radius: 10px;
+        // border-bottom-right-radius: 10px;
+        justify-content: space-between;
+        
+        .navbarChatContainer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 100%;
+        }
+
+        .textLeft {
+            flex: 7;
+            margin-left: 10px;
+        }
+
+        .navbarChatIcons {
+            flex: 1;
+            margin-right: 15px;
+            display: flex;
+            font-size: 30px;
+            cursor: pointer;
+            justify-content: space-between;
+        }
+  
+    }
 }
 
 .search {
@@ -113,13 +148,12 @@ body {
         position: absolute;
         top: 7px;
         color: white;
-        left: 285px;
+        left: 320px;
     }
 
     .userChat {
         padding: 0px 5px;
-        border-bottom: solid 2px #ff0000;
-        background-color: #ddddf7;
+        border-bottom: solid 2px #d93d3d;
 
         img {
             height: 48px;
@@ -136,7 +170,7 @@ body {
         }
 
         .userChatInfo {
-            font-size: 14px;
+            font-size: 15px;
             color: white;
             display: flex;
             flex-direction: row;
@@ -152,10 +186,7 @@ body {
 
 
 .chats {
-
     padding: 0px 10px;
-
-
     .userChat {
 
         display: flex;
@@ -180,6 +211,7 @@ body {
             font-size: 14px;
             color: white;
             display: flex;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             flex-direction: row;
             justify-content: flex-end;
         }
@@ -188,7 +220,99 @@ body {
         &:hover {
             background-color: #d93d3d;
         }
-    }     
-}   
+    }   
+    }   
+
+.messages {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 10px;
+    width: auto;
+    height: 75%;
+    overflow: scroll;
+    overflow-x: hidden;
+    
+    .message {
+        margin-top: 5px;
+        margin-right: 10px;
+        background-color: $messagecolor;
+        border-radius: 20px;
+        border-top-left-radius: 0px;
+    }
+
+    .messageContainer {
+        display: flex;
+        margin-top: 2px;
+        flex-direction: row;
+        height: auto;
+        min-height: 80px;
+        
+        .playerProfileBox {
+
+        display: flex;
+        flex-direction: column;
+        margin-right: 10px;
+        margin-left: 10px;
 
 
+        .playerMessagePhoto {
+                width: 32px;
+                height: 32px;
+                display: flex;
+                flex-direction: column;
+                border-radius: 50%;
+                object-fit: cover;
+                justify-content: center;
+                align-items: center;
+                margin-top: 10px;
+                margin-left: 5px;
+            }
+        
+        .playerMessageName {
+            color: white;
+        }
+        }
+
+        .playerMessage {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .playerMessageData{
+                color:rgb(225, 133, 53);
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                font-size: 12px;
+                flex-direction: row;
+                justify-content:  flex-start;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.inputChat {
+    display: flex;
+
+    .inputChatContainer {
+        display: flex;
+        width: 95%;
+        margin-left: 10px;
+        background-color: #d93d3d;
+        border-radius: 10px;
+        border-color: #d93d3d;
+
+        .inputChatItem {
+            border: transparent;
+            font-size: 16px;
+        }
+    }
+
+    .inputIcon {
+        font-size: 40px;
+        margin-left: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+
+}

@@ -1,8 +1,20 @@
 import React from 'react'
+import image from './navbar.png'
 
 const Message = () => {
   return (
-    <p> test </p>
+    <div className="message">
+      <div className="messageContainer">
+        <div className="playerProfileBox">
+          <img className="playerMessagePhoto"src={image} alt="photox" />
+          <span className="playerMessageName"> name </span>
+        </div>
+        <div className="playerMessage">
+            <span className="playerMessageData"> 2012.12.35 04:12 AM</span>
+            <p className="playerMessageText"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique eveniet consequatur sequi. Lorem ipsum similique molestias odit impedit. </p>
+        </div>
+      </div>
+    </div>
   )
 }
 
