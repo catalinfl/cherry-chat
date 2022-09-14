@@ -6,7 +6,7 @@ import Chats from './Chats'
 const Sidebar = () => {
   return (
     <div className="sidebar bg-red-400 rounded-tl-lg rounded-bl-lg"> 
-    <Navbar />
+    <Navbar className="fixed" />
     <Search/>
     <Chats />
     <Chats />
