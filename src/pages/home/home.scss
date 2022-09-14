@@ -2,25 +2,34 @@
 $messagecolor: hsl(0, 70%, 54%);
 $background-color: rgb(252 165 165);
 
-
 .home {
     display: flex;
     justify-content: center;
     margin-top: 4rem;
     overflow-y: auto;
     direction: ltr;
+    overflow: hidden;     
 
+    @media screen and (max-width: 1200px) {
+        margin-top: 1.5rem;
+        overflow: hidden;   
+        font-size: 12px;  
+    }
 
     @media screen and (max-width: 1024px) {
-        margin-top: 3rem;
+        margin-top: 0.5rem;
     }
 
     @media screen and (max-width: 768px) {
-        margin-top: 2rem;
+        overflow: hidden;     
+        padding: 12px;
+
     }
 
     @media screen and (max-width: 480px) {
-        margin-top: 1rem;
+        margin-top: 0;
+        overflow: hidden;     
+
     }
 
 
@@ -28,7 +37,6 @@ $background-color: rgb(252 165 165);
 
 body {
     background-color: $background-color;
-    
 }
 
 
@@ -36,6 +44,15 @@ body {
     width: 75%;
     height: 80vh;
     display: flex;
+
+
+    @media screen and (max-width: 1024px) {
+        overflow: hidden;     
+        height: 80vh;
+        font-size: 12px;
+    }
+    
+
   
         ::-webkit-scrollbar{
         height: 15px;
@@ -57,6 +74,18 @@ body {
     overflow: scroll;
     overflow-x: hidden;
     width: 100%;      
+
+    @media screen and (max-width: 1200px) {
+        font-size: 14px;
+    }
+    @media screen and (max-width: 1024px) {
+        font-size: 12px;
+    }
+
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
 
     .navbar {
         display: flex;
@@ -90,6 +119,7 @@ body {
 .chat {
     flex: 5;
 
+
     .navbarChat {
         background-color: #d93d3d;
         color: white;
@@ -101,6 +131,19 @@ body {
         // border-top-right-radius: 10px;
         // border-bottom-right-radius: 10px;
         justify-content: space-between;
+
+        @media screen and (max-width: 1200px) {
+            height: 30px;
+            margin-top: 10px;
+            font-size: 13px;
+        }        
+
+
+        @media screen and (max-width: 1200px) {
+            font-size: 10px;
+        }        
+
+
         
         .navbarChatContainer {
             display: flex;
@@ -121,6 +164,23 @@ body {
             font-size: 30px;
             cursor: pointer;
             justify-content: space-between;
+
+            @media screen and (max-width: 768px) {
+                font-size: 15px;
+                justify-content: flex-end;
+            }   
+
+            @media screen and (max-width: 480px) {
+                font-size: 13px;
+                justify-content: flex-end;
+            }   
+
+            
+            @media screen and (max-width: 1024px) {
+                font-size: 18px;
+                justify-content: flex-end;
+            }           
+
         }
   
     }
@@ -187,6 +247,8 @@ body {
 
 .chats {
     padding: 0px 10px;
+
+
     .userChat {
 
         display: flex;
@@ -194,10 +256,29 @@ body {
         padding: 10px;
         gap: 2px;
 
+        @media screen and (max-width: 1200px) {
+            height: 80px;
+            height: auto;
+        }
+        @media screen and (max-width: 1024px) {
+            margin-top: 1px;
+        }
+    
+
         img {
             height: 48px;
             width: 48px;
             border-radius: 50%;
+
+            @media screen and (max-width: 1200px) {
+                height: 36px;
+                width: 36px;
+            }
+            @media screen and (max-width: 1024px) {
+                height: 36px;
+                width: 36px;
+            }
+    
         }
 
         .profile {
@@ -214,6 +295,14 @@ body {
             font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             flex-direction: row;
             justify-content: flex-end;
+
+            @media screen and (max-width: 1200px) {
+                font-size: 14px;
+            }
+            @media screen and (max-width: 1024px) {
+                font-size: 12px;
+            }
+    
         }
 
 
@@ -231,6 +320,28 @@ body {
     height: 75%;
     overflow: scroll;
     overflow-x: hidden;
+
+    @media screen and (max-width: 1480px) {
+        height: 70%;
+    }
+
+
+    @media screen and (max-width: 1280px) {
+        height: 68%;
+    }
+
+    @media screen and (max-width: 1024px) {
+        height: 65%;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: 60%;
+    }
+
+    @media screen and (max-width: 568px) {
+        height: 50%;
+    }
+
     
     .message {
         margin-top: 5px;
@@ -300,6 +411,7 @@ body {
     .inputChatContainer {
         display: flex;
         width: 95%;
+        border: solid 1px #000;
         margin-left: 10px;
         background-color: #d93d3d;
         border-radius: 10px;
