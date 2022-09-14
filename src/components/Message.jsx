@@ -11,7 +11,7 @@ const Message = () => {
         </div>
         <div className="playerMessage">
             <span className="playerMessageData"> 2012.12.35 04:12 AM</span>
-            <p className="playerMessageText"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex voluptates quam neque quis beatae odio porro deserunt veniam susci </p>
+            <p className="playerMessageText"> Lorem ipsum dolor sit, amet consec</p>
         </div>
       </div>
     </div>
