@@ -6,6 +6,7 @@
 .pnp.js
 tailwind.config.js
 postcss.config.js
+.env
 
 # testing
 /coverage
