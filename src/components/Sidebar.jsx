@@ -8,23 +8,6 @@ const Sidebar = () => {
     <div className="sidebar bg-red-400 rounded-tl-lg rounded-bl-lg"> 
     <Navbar className="fixed" />
     <Search/>
-    <Chats />
-    <Chats />
-    <Chats />    
-    <Chats />
-    <Chats />
-    <Chats />
-    <Chats />
-    <Chats />
-    <Chats />    
-    <Chats />
-    <Chats />
-    <Chats />    
-    <Chats />
-    <Chats />
-    <Chats />    
-    <Chats />
-    <Chats />
     <Chats />    
     
     </div>

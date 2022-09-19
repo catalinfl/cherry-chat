@@ -78,7 +78,7 @@ const Search = () => {
             <div className="searchContainer">
                 <AiOutlineSearch className="searchIcon"/>
                 <input onKeyDown={handleKey} onChange={(e) => setUsername(e.target.value)}
-                value={username} type="text" className="inputItemSearch bg-red-700" />
+                value={username} type="text" className="inputItemSearch bg-red-700" /> 
                 {err && <span> User not found </span>}
                 {user && (
                 <div className="userChat bg-red-700" onClick={handleSelect}>
@@ -92,5 +92,6 @@ const Search = () => {
         </div>
     )
 }
+
 
 export default Search
