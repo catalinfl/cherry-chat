@@ -9,20 +9,20 @@ import { auth } from '../../firebase'
 const Login = () => {
 
   const [error, setError] = useState(false);
-  const [textError, setTextError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
+    console.log(e.target);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     }
     catch(err) {
       setError(true);
-      setTextError(err);
+      console.log(err);
     }
   }
 
@@ -34,7 +34,7 @@ const Login = () => {
         <div className="formWrapper">
         <form onSubmit={handleSubmit} className="inputLoginForm flex flex-col w-full justify-center">
         <div className="mb-5">
-        <Input className="logInputItem" type="e-mail" color="red" label="E-mail"/>
+        <Input className="logInputItem" type="text" color="red" label="Username"/>
         </div>
         <Input className="logInputItem" type="password" color="red" label="Password"/>
         <Button color="red" type="submit" className="w-32 mt-12 mx-auto "> Log In  </Button> 
@@ -42,9 +42,7 @@ const Login = () => {
           Register now
         </Link>
         </p>
-        {error && 
-          <span className="errorText bg-red-500 p-3 my-10 text-white"> There is an error </span>
-        }
+        {error && <span className="errorText"> {error} </span>}
         </form>
         </div>
       </div>
