@@ -319,7 +319,7 @@ body {
 
 .messages {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     margin: 10px;
     height: 75%;
     overflow: scroll;
@@ -348,67 +348,6 @@ body {
     }
 
     
-    .message {
-        margin-top: 5px;
-        margin-right: 10px;
-        background-color: $messagecolor;
-        border-radius: 20px;
-        border-top-left-radius: 0px;
-
-    }
-
-    .messageContainer {
-        display: flex;
-        margin-top: 2px;
-        flex-direction: row;
-        height: auto;
-        min-height: 80px;
-        margin-left: -10px;
-        
-        .playerProfileBox {
-
-        display: flex;
-        flex-direction: column;
-        margin-left: 10px;
-
-
-        .playerMessagePhoto {
-                width: 32px;
-                height: 32px;
-                display: flex;
-                flex-direction: column;
-                border-radius: 50%;
-                object-fit: cover;
-                justify-content: center;
-                align-items: center;
-                margin-top: 10px;
-                margin-left: 15px;
-            }
-        
-        .playerMessageName {
-            color: white;
-            margin-left: 16px;
-            font-size: 12px;
-        }
-        }
-
-        .playerMessage {
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-left: 15px;
-
-            .playerMessageData{
-                color:rgb(225, 133, 53);
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                font-size: 12px;
-                flex-direction: row;
-                justify-content:  flex-start;
-                width: 100%;
-            }
-        }
-    }
 }
 
 .inputChat {
@@ -451,3 +390,66 @@ body {
     }
 
 }
+
+.message {
+    margin-top: 5px;
+    margin-right: 10px;
+    background-color: $messagecolor;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+
+}
+
+.messageContainer {
+    display: flex;
+    margin-top: 2px;
+    flex-direction: row;
+    height: auto;
+    min-height: 80px;
+    margin-left: -10px;
+    
+    .playerProfileBox {
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+
+
+    .playerMessagePhoto {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 50%;
+            object-fit: cover;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 15px;
+        }
+    
+    .playerMessageName {
+        color: white;
+        margin-left: 16px;
+        font-size: 12px;
+    }
+    }
+
+    .playerMessage {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 15px;
+
+        .playerMessageData{
+            color:rgb(225, 133, 53);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 12px;
+            flex-direction: row;
+            justify-content:  flex-start;
+            width: 100%;
+        }
+    }
+}
+

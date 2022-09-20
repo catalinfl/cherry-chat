@@ -9,7 +9,6 @@ const Sidebar = () => {
     <Navbar className="fixed" />
     <Search/>
     <Chats />    
-    
     </div>
     )
 }

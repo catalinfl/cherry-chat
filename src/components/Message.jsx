@@ -12,26 +12,17 @@ const Message = ( { message }) => {
 
   const ref = useRef();
 
-  const setUser = () => {
-    if (message.senderId === currentUser.uid) {
-      return currentUser.displayName;
-    }
-    else return data.user.displayName;
-  }
-
-
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth"});
   }, [message])
 
   return (
-    <div className={`message ${message.senderId === currentUser.uid && "owner"}`} ref={ref}>
+    <div ref={ref} className={`message ${message.senderId === currentUser.uid && "owner"}`}>
       <div className="messageContainer">
         <div className="playerProfileBox">
           <img className="playerMessagePhoto" src={
             message.senderId === currentUser.uid ? currentUser.photoURL : data.user.photoURL
           } alt="photox" />
-          <span className="playerMessageName"> {setUser} </span>
         </div>
         <div className="playerMessage">
             <span className="playerMessageData"> 2012.12.35 04:12 AM</span>
