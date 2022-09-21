@@ -8,7 +8,7 @@ import { useContext } from 'react';
 const Search = () => {
 
     const [username, setUsername] = useState("");
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState("");
     const [err, setErr] = useState(false);
 
     const { currentUser } = useContext(AuthContext);

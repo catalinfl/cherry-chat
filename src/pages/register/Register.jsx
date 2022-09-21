@@ -23,7 +23,6 @@ const Register = () => {
     const email = e.target[1].value;
     const password = e.target[2].value;
     const file = e.target[3].files[0];
-    var vipLevel = 0;
     
 
     try {
@@ -44,7 +43,6 @@ const Register = () => {
             displayName,
             email,
             photoURL: downloadURL,
-            vipLevel
           })
           await setDoc(doc(db, "userChats", res.user.uid), {});
           navigate('/');

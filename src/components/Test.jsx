@@ -1,97 +1,89 @@
-import React, {useState} from 'react'
-import {AiOutlineSearch} from 'react-icons/ai';
-import { collection, query, where, getDocs, setDoc, doc, updateDoc, serverTimestamp, getDoc } from "firebase/firestore";
-import { db } from "../firebase"
-import { AuthContext } from '../context/AuthContext';
-import { useContext } from 'react';
+import React from 'react'
+import { Input } from '@material-tailwind/react'
+import { FcStackOfPhotos } from 'react-icons/fc'
+import { AuthContext } from '../context/AuthContext'
+import { ChatContext } from '../context/ChatContext'
+import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
+import { db, storage } from "../firebase"
+import { v4 as uuid} from "uuid"
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { useContext, useState } from 'react'
+import { Button } from '@material-tailwind/react'
 
-const Search = () => {
 
-    const [username, setUsername] = useState("");
-    const [user, setUser] = useState(null);
-    const [err, setErr] = useState(false);
+const InputChat = () => {
 
-    const { currentUser } = useContext(AuthContext);
+  const [text, setText] = useState("");
+  const [img, setImg] = useState(null);
 
-    const handleSearch = async () => {
-        const q = query(
-            collection(db, "users"), 
-            where("displayName", "==", username))
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
 
-    try {
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            setUser(doc.data());
-        });
-    }
-    catch(err) {
-        setErr(true);
-    }
-    };
+  const handleSend = async () => {
+    if (img) {
+      const storageRef = ref(storage, uuid());
+      const uploadTask = uploadBytesResumable(storageRef, img);
 
-    const handleKey = (e) => {
-        e.code === "Enter" && handleSearch();
-    }
+      uploadTask.on(
+        (error) => {
 
-    const handleSelect = async () => {
-        const combinedId = 
-        currentUser.uid > user.uid 
-        ? currentUser.uid + user.uid 
-        : user.uid + currentUser.uid;
+        },
 
-        try {
-            const res = await getDoc(doc(db, "chats", combinedId));
-            
-            if (!res.exists()) {
-                await setDoc(doc(db, "chats", combinedId), {messages: [] });
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateDoc(doc(db, "chats", data.chatId), {
+              messages: arrayUnion({
+                id: uuid(),
+                text,
+                senderId: currentUser.uid,
+                date: Timestamp.now(),
+                img: downloadURL
+              }),
+            });
+          })
 
-                await updateDoc(doc(db, "userChats", currentUser.uid), {
-                    [combinedId + ".userInfo"]: {
-                        uid: user.uid,
-                        displayName: user.displayName,
-                        photoURL: user.photoURL,
-                    }, 
-                    [combinedId + ".date"]: serverTimestamp(),
-                });
-
-            await updateDoc(doc(db, "userChats", user.uid), {
-                [combinedId + ".userInfo"]: {
-                uid: currentUser.uid,
-                displayName: currentUser.displayName,
-                photoURL: currentUser.photoURL,
-            },
-                [combinedId + ".date"]: serverTimestamp(),
-        });
-        } 
-    }
-        catch(err) {
-            console.log(err)
         }
-
-        setUser(null);
-        setUsername("");
+      )
+    } else {
+      await updateDoc(doc(db, "chats", data.chatId), {
+        message: {
+          id: uuid(),
+          text,
+          senderId: currentUser.uid,
+          date: Timestamp.now(),
+        }
+      })
     }
 
+    await updateDoc(doc(db, "userChats", currentUser.uid), {
+      [data.chatId + ".lastMessage"]: {
+        text,
+      },
+      [data.chatId + ".date"]: serverTimestamp(),
+    })
 
-    return (
-        <div className="search">
-            <div className="searchContainer">
-                <AiOutlineSearch className="searchIcon"/>
-                <input onKeyDown={handleKey} onChange={(e) => setUsername(e.target.value)}
-                value={username} type="text" className="inputItemSearch bg-red-700" /> 
-                {err && <span> User not found </span>}
-                {user && (
-                <div className="userChat bg-red-700" onClick={handleSelect}>
-                    <div className="profile">
-                    <img className="userChatImage" src={user.photoURL} alt="" />
-                    <span> {user.displayName} </span> 
-                    </div>
-                </div>
-                )}
-            </div>
-        </div>
+    await updateDoc(doc(db, "userChats", data.user.uid), {
+      [data.chatId + ".lastMessage"]: {
+        text,
+      },
+      [data.chatId + "date"]: serverTimestamp()
+    })
+
+    setImg(null);
+  }
+
+  return (
+    <div className="inputChat">
+      <div className="inputChatContainer">
+        <Input varriant="outlined" onChange={(e) => setText(e.target.value)} value={text} className="inputChatItem shadow-lg" type="text" label="chat" spellCheck="false" color="orange"/>
+      </div>
+        <input type="file" style={{display: 'none'}} id="file" onChange={(e) => setImg(e.target.files[0])} />
+      <label htmlFor='file'> 
+      <FcStackOfPhotos className="inputIcon"/>
+      </label>
+      <Button color="red" type="submit" onClick={handleSend}> Send </Button>
+    </div>
     )
 }
 
-
-export default Search
+export default InputChat

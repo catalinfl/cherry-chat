@@ -1,18 +1,21 @@
-import React from 'react'
-import { Input } from '@material-tailwind/react'
-import { FcStackOfPhotos } from 'react-icons/fc'
-import { AuthContext } from '../context/AuthContext'
-import { ChatContext } from '../context/ChatContext'
-import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore'
-import { db, storage } from "../firebase"
-import { v4 as uuid} from "uuid"
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { useContext, useState } from 'react'
-import { Button } from '@material-tailwind/react'
-
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
+import { FcStackOfPhotos } from "react-icons/fc";
+import { Input, Button } from '@material-tailwind/react'
+import {
+  arrayUnion,
+  doc,
+  serverTimestamp,
+  Timestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { db, storage } from "../firebase";
+import { v4 as uuid } from "uuid";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import image from './appimg.jpg'
 
 const InputChat = () => {
-
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
 
@@ -22,13 +25,13 @@ const InputChat = () => {
   const handleSend = async () => {
     if (img) {
       const storageRef = ref(storage, uuid());
+
       const uploadTask = uploadBytesResumable(storageRef, img);
 
       uploadTask.on(
         (error) => {
-
+          //TODO:Handle Error
         },
-
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await updateDoc(doc(db, "chats", data.chatId), {
@@ -37,22 +40,21 @@ const InputChat = () => {
                 text,
                 senderId: currentUser.uid,
                 date: Timestamp.now(),
-                img: downloadURL
+                img: downloadURL,
               }),
             });
-          })
-
+          });
         }
-      )
+      );
     } else {
       await updateDoc(doc(db, "chats", data.chatId), {
-        message: arrayUnion({
+        messages: arrayUnion({
           id: uuid(),
           text,
           senderId: currentUser.uid,
           date: Timestamp.now(),
-        })
-      })
+        }),
+      });
     }
 
     await updateDoc(doc(db, "userChats", currentUser.uid), {
@@ -60,19 +62,18 @@ const InputChat = () => {
         text,
       },
       [data.chatId + ".date"]: serverTimestamp(),
-    })
+    });
 
     await updateDoc(doc(db, "userChats", data.user.uid), {
       [data.chatId + ".lastMessage"]: {
         text,
       },
-      [data.chatId + "date"]: serverTimestamp()
-    })
+      [data.chatId + ".date"]: serverTimestamp(),
+    });
 
     setText("");
     setImg(null);
-  }
-
+  };
   return (
     <div className="inputChat">
       <div className="inputChatContainer">
@@ -85,6 +86,6 @@ const InputChat = () => {
       <Button color="red" type="submit" onClick={handleSend}> Send </Button>
     </div>
     )
-}
+};
 
-export default InputChat
+export default InputChat;
