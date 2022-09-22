@@ -15,13 +15,13 @@ const Messages = () => {
       doc.exists() && setMessages(doc.data().messages);
     })
 
+
     return () => {
       unSub();
     }
   }, [data.chatId]);
 
-  console.log(messages);
-  
+
   return (
     <div className="messages">
       {messages.map((message) => (

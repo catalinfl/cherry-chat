@@ -1,21 +1,29 @@
 import React from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
-import { ChatContext } from '../context/ChatContext'
-import { useRef } from 'react'
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 const Message = ( { message }) => {
 
   const { currentUser } = useContext(AuthContext);
 
 
-  const ref = useRef();
 
   // useEffect(() => {
   //   ref.current?.scrollIntoView({ behavior: "smooth"});
   // }, [message])
 
+  const [hasImage, setHasImage] = useState(false);
+
+  const time = new Date(1970, 0, 1);
+
+  time.setSeconds(message.date.seconds + 10880);
+
+  // const dateOf = new Date(message.date.seconds * 1000).toUTCString();
+  const newData = 
+  time.toString().slice(4, 15) 
+  + " " 
+  + time.toString().slice(16, 21)
 
   return (
     <div className="message">
@@ -25,8 +33,8 @@ const Message = ( { message }) => {
             currentUser.photoURL
 } alt="photos" />
         </div>
-        <div ref={ref} className="playerMessage">
-            <span className="playerMessageData"> 2012.12.35 04:12 AM</span>
+        <div className="playerMessage">
+            <span className="playerMessageData"> {newData} </span>
             <p className="playerMessageText"> {message.text} </p>
         </div>
       </div>

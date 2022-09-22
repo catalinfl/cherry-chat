@@ -13,7 +13,6 @@ import {
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import image from './appimg.jpg'
 
 const InputChat = () => {
   const [text, setText] = useState("");
@@ -87,5 +86,6 @@ const InputChat = () => {
     </div>
     )
 };
+
 
 export default InputChat;
