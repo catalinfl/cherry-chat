@@ -13,17 +13,17 @@ const Message = ( { message }) => {
   //   ref.current?.scrollIntoView({ behavior: "smooth"});
   // }, [message])
 
-  const [hasImage, setHasImage] = useState(false);
 
   const time = new Date(1970, 0, 1);
 
-  time.setSeconds(message.date.seconds + 10880);
+  time.setSeconds(message.date.seconds + 10800);
 
   // const dateOf = new Date(message.date.seconds * 1000).toUTCString();
   const newData = 
   time.toString().slice(4, 15) 
   + " " 
-  + time.toString().slice(16, 21)
+  + time.toString().slice(16, 24)
+
 
   return (
     <div className="message">

@@ -45,7 +45,7 @@ const Chats = () => {
             <span> {chat[1]?.userInfo?.displayName} </span> 
         </div>
         <div className="userChatInfo">
-            <span> {chat[1]?.lastMessage?.text} </span>
+            <span> {chat[1]?.lastMessage?.text.length >= 30 ? chat[1]?.lastMessage?.text.slice(0, 30) + "..." : chat[1]?.lastMessage?.text} </span>
         </div>
     </div>
     ))}
