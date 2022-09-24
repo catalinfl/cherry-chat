@@ -19,6 +19,7 @@ const InputChat = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
   const [valueLength, setValueLength] = useState(false);
+  const [isEmptyInput, setIsEmptyInput] = useState(false);
   const [anotherCharacters, setAnotherCharacters] = useState(0);
   const [anotherCharactersBool, setAnotherCharactersBool] = useState(false);
 
@@ -37,7 +38,6 @@ const InputChat = () => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log(text);
             await updateDoc(doc(db, "chats", data.chatId), 
             {
               messages: arrayUnion({
@@ -52,6 +52,7 @@ const InputChat = () => {
         }
       );
     } else {
+      if (text.length === 0) { setIsEmptyInput(true); return }
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
@@ -79,36 +80,46 @@ const InputChat = () => {
     setImg(null);
     setValueLength(false);
     setAnotherCharactersBool(false);
+    setIsEmptyInput(false);
   };
 
-  var numberOfCharacters = 151;
+  var numberOfCharactersAllowed = 151;
 
   const onChangeText = (e) => {
-    if (e.target.value.length < numberOfCharacters) {
+    const inputCharacters = e.target.value.length;
+    if (inputCharacters < numberOfCharactersAllowed) {
     setText(e.target.value);
     setValueLength(false);
+    setIsEmptyInput(false);
   }
-  setAnotherCharactersBool(false);
-    if (e.target.value.length >= numberOfCharacters - 20) {
-        setAnotherCharacters(numberOfCharacters - e.target.value.length);
+
+    setAnotherCharactersBool(false);
+    setIsEmptyInput(false);
+
+    if (inputCharacters >= numberOfCharactersAllowed - 20) {
+        setAnotherCharacters(numberOfCharactersAllowed - inputCharacters);
         setAnotherCharactersBool(true);
-    }
-    if (e.target.value.length >= numberOfCharacters) {
+        setIsEmptyInput(false);
+      }
+
+    if (inputCharacters >= numberOfCharactersAllowed) {
       setValueLength(true);
       setAnotherCharactersBool(false);
+      setIsEmptyInput(false);
     }
   }
 
+  const handleKey = (e) => {
+    e.code === "Enter" && handleSend() 
+  }
 
-
- 
 
 
   return (
     <> 
     <div className="inputChat">
       <div className="inputChatContainer">
-        <Input varriant="outlined" type="text" onChange={(e) => onChangeText(e)} value={text} className="inputChatItem shadow-lg" label="chat" spellCheck="false" color="orange"/>
+        <Input onKeyDown={handleKey} varriant="outlined" type="text" onChange={(e) => onChangeText(e)} value={text} className="inputChatItem shadow-lg" label="chat" spellCheck="false" color="orange"/>
       </div>
         <input type="file" style={{display: 'none'}} id="file" onChange={(e) => onChangeText(e)} />
       <label htmlFor='file'> 
@@ -118,7 +129,8 @@ const InputChat = () => {
     </div>
      <div className="errorContainer"> 
       { anotherCharactersBool && <div className="errorRemainingCharacters"> <p> {` ${anotherCharacters - 1} characters remaining... `} </p> </div>}
-      { valueLength && <div className="errorMaxCharacters">  <FiAlertCircle className="errorIcon"/>  <p>  {`Maximum ${numberOfCharacters - 1} characters`} </p> </div> }
+      { valueLength && <div className="errorMaxCharacters">  <FiAlertCircle className="errorIcon"/>  <p>  {`Maximum ${numberOfCharactersAllowed - 1} characters`} </p> </div> }
+      { isEmptyInput && <div className="errorMaxCharacters">  <FiAlertCircle className="errorIcon"/>  <p> Write something before sending </p> </div> }
       </div>
       </>
 )

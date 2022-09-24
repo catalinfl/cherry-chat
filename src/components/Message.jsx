@@ -1,17 +1,14 @@
 import React from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
-import { useState } from 'react'
+import { useRef } from 'react'
+import { useEffect } from 'react'
 
 const Message = ( { message }) => {
 
   const { currentUser } = useContext(AuthContext);
 
 
-
-  // useEffect(() => {
-  //   ref.current?.scrollIntoView({ behavior: "smooth"});
-  // }, [message])
 
 
   const time = new Date(1970, 0, 1);
