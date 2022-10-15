@@ -1,1 +1,1 @@
-## Made with React, Tailwind CSS, Material Tailwind and Firebase
+# Made with React, Tailwind CSS, Material Tailwind and Firebase
